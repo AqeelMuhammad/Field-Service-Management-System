@@ -18,4 +18,13 @@ public class TechnicianRequest {
 
     @NotEmpty(message = "Phone must not be empty")
     private String phone;
+
+    @Override
+    public String toString() {
+        return "TechnicianRequest{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
 }
