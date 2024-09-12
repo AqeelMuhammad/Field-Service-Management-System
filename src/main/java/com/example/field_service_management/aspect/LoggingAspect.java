@@ -15,14 +15,12 @@ import java.util.Arrays;
 public class LoggingAspect {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-    private final Environment env;
 
     public LoggingAspect(Environment env) {
-        this.env = env;
     }
 
     // Define a Pointcut for the application package
-    @Pointcut("within(com.example.field_service_management..*)")
+    @Pointcut("within(com.example.field_service_management.*)")
     public void applicationPackagePointcut() {
         // Pointcut for methods within the application package
     }
@@ -46,10 +44,7 @@ public class LoggingAspect {
             }
             return result;
         } catch (Throwable e) {
-            log.error("Exception in {}.{}() with cause = '{}'",
-                    joinPoint.getSignature().getDeclaringTypeName(),
-                    joinPoint.getSignature().getName(),
-                    e.getCause() != null ? e.getCause() : "NULL");
+            logException(joinPoint, e);
             throw e;
         }
     }
@@ -57,6 +52,10 @@ public class LoggingAspect {
     // After throwing advice for logging exceptions
     @AfterThrowing(pointcut = "applicationPackagePointcut()", throwing = "e")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable e) {
+        logException(joinPoint, e);
+    }
+
+    private void logException(JoinPoint joinPoint, Throwable e) {
         log.error("Exception in {}.{}() with cause = '{}'",
                 joinPoint.getSignature().getDeclaringTypeName(),
                 joinPoint.getSignature().getName(),
@@ -66,12 +65,12 @@ public class LoggingAspect {
     // Logging before the execution of any method in the specified package
     @Before("execution(* com.example.field_service_management.service.*.*(..))")
     public void logBefore(JoinPoint joinPoint) {
-        log.debug("Method called: " + joinPoint.getSignature().getName());
+        log.debug("Method called: {}", joinPoint.getSignature().getName());
     }
 
     // Logging after the method execution
     @After("execution(* com.example.field_service_management.service.*.*(..))")
     public void logAfter(JoinPoint joinPoint) {
-        log.debug("Method execution finished: " + joinPoint.getSignature().getName());
+        log.debug("Method execution finished: {}", joinPoint.getSignature().getName());
     }
 }

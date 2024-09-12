@@ -26,10 +26,10 @@ public class TechnicianController {
     }
 
     @PostMapping
-    public ResponseEntity createTechnician(@Valid @RequestBody TechnicianRequest technicianRequest){
+    public ResponseEntity<ApiResponse<Technician>> createTechnician(@Valid @RequestBody TechnicianRequest technicianRequest){
         Technician createdTechnician = technicianService.createTechnician(technicianRequest);
-        ApiResponse response = new ApiResponse("Success", "Create Technician Success", createdTechnician);
-        return new ResponseEntity(response, HttpStatus.CREATED);
+        ApiResponse<Technician> response = new ApiResponse<>("Success", "Create Technician Success", createdTechnician);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
@@ -61,7 +61,7 @@ public class TechnicianController {
         List<Technician> technicians = technicianService.getAllTechnicians();
         if (technicians.isEmpty()) {
             ApiResponse<List<Technician>> response = new ApiResponse<>("Fail", "No Technician Found", null);
-            return new ResponseEntity(response, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
         } else {
             ApiResponse<List<Technician>> response = new ApiResponse<>("Success", "Get Technician Success", technicians);
             return ResponseEntity.ok(response);

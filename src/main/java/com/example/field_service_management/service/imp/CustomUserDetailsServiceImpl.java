@@ -28,9 +28,9 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
                 new UsernameNotFoundException("User not found with username: " + username)
         );
 
-        // Convert roles (assuming they are strings) to GrantedAuthority
+        // Convert roles to GrantedAuthority
         Set<GrantedAuthority> grantedAuthorities = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role))
+                .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toSet());
 
         // Convert your User entity to Spring Security's UserDetails object
