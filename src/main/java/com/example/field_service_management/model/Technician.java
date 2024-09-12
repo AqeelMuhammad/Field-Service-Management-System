@@ -19,4 +19,14 @@ public class Technician {
     private String name;
     private String email;
     private String phone;
+
+    @Override
+    public String toString() {
+        return "Technician{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
 }

@@ -35,6 +35,9 @@ public class GoogleMapsServiceImpl implements GoogleMapsService {
             String url = String.format(GEOCODE_API_URL, latitude, longitude, googleMapsConfig.getApiKey());
             String response = restTemplate.getForObject(url, String.class);
             GeocodingResponse geocodingResponse = objectMapper.readValue(response, GeocodingResponse.class);
+//            JsonNode root = objectMapper.readTree(response);
+//            JsonNode location = root.path("results").path(0).path("formatted_address");
+//            System.out.print("location : "+location);
             return Optional.ofNullable(geocodingResponse)
                     .map(GeocodingResponse::getResults)
                     .flatMap(results -> results.stream().findFirst())
