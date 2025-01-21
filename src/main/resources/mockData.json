@@ -1,0 +1,21 @@
+{
+  "id": "12345",
+  "jobName": "Sample Job Order",
+  "status": "Active",
+  "createdBy": "John Doe",
+  "createdAt": "2025-01-20T10:30:00Z",
+  "product": {
+    "id": "98765",
+    "name": "Sample Product",
+    "price": 499.99,
+    "quantity": 10,
+    "expiryDate": "2025-01-19T14:45:00Z"
+  },
+  "customer": {
+    "id": "54321",
+    "name": "Sample Customer",
+    "email": "customer@example.com"
+  },
+  "priority": "High",
+  "notes": "This is a sample note for the job order."
+}
